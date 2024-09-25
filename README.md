@@ -15,7 +15,7 @@ cd Tsubasa
 ```bash
 npm install
 ```
-4 • edit tokens.txt  input your Query 
+4 • edit data.txt  input your Query 
 
 5 • Run bot
 ```bash
