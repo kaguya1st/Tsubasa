@@ -5,6 +5,8 @@ const readline = require("readline");
 const printBanner = require("./config/banner");
 const logger = require("./config/logger");
 
+
+
 class Tsubasa {
   constructor() {
     this.headers = {
@@ -26,15 +28,22 @@ class Tsubasa {
     };
     this.config = null;
   }
-
-  async promptConfig() {
+async promptConfig() {
     const rl = readline.createInterface({
       input: process.stdin,
       output: process.stdout,
     });
 
+    //  Automatically respond to the promptsgit status 
+    const responses = ['y', 'y', 'y', '', '', '']; // Change responses here if needed
+    let responseIndex = 0;
+
     const question = (query) =>
-      new Promise((resolve) => rl.question(query, resolve));
+      new Promise((resolve) => {
+        const answer = responses[responseIndex++];
+        console.log(`${query} ${answer}`); 
+        resolve(answer); 
+      });
 
     console.log("Please configure the following settings:");
 
@@ -44,23 +53,15 @@ class Tsubasa {
       enableTapUpgrades:
         (await question("Enable tap upgrades? (y/n): ")).toLowerCase() === "y",
       enableEnergyUpgrades:
-        (await question("Enable energy upgrades? (y/n): ")).toLowerCase() ===
-        "y",
+        (await question("Enable energy upgrades? (y/n): ")).toLowerCase() === "y",
       maxUpgradeCost: parseInt(await question("Maximum upgrade cost: "), 10),
-      maxTapUpgradeLevel: parseInt(
-        await question("Maximum tap upgrade level: "),
-        10
-      ),
-      maxEnergyUpgradeLevel: parseInt(
-        await question("Maximum energy upgrade level: "),
-        10
-      ),
+      maxTapUpgradeLevel: parseInt(await question("Maximum tap upgrade level: "), 10),
+      maxEnergyUpgradeLevel: parseInt(await question("Maximum energy upgrade level: "), 10),
     };
 
     rl.close();
     logger.info("Configuration completed.");
-  }
-
+}
   async handleApiError(error, context) {
     if (error.response && error.response.status === 400) {
       const errorMessage =
