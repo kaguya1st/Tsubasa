@@ -1,4 +1,4 @@
-# Captain Tsubasa
+# Captain Tsubasa Sc by @Galkurta
 [Register Captain Tsubasa](https://t.me/TsubasaRivalsBot/start?startapp=inviter_id-5125640256)
 
 EXSEKUSI
